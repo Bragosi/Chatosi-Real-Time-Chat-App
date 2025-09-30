@@ -9,8 +9,8 @@ import { useAuthStore } from "./store/useAuthStore";
 import { useChatStore } from "./store/useChatStore"; // 👇 Make sure this import is here!
 import { useEffect } from "react";
 import { MessagesSquare } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 import { useThemeStore } from "./store/useThemeStore";
-import ChatToaster from "./components/ui/ChatToaster";
 
 export default function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -71,12 +71,9 @@ export default function App() {
               element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
             />
           </Routes>
-
-            <SettingsPage/>
-            <ProfilePage/>
         </>
       )}
-      <ChatToaster />
+      <Toaster />
     </div>
   );
 }

@@ -5,12 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev" : "nodemon src/server.js",
-    "dev:full": "node scripts/start-dev.js",
-    "start":"node src/server.js",
-    "docker:up": "docker compose up mongodb -d",
-    "docker:down": "docker compose down",
-    "docker:clean": "docker compose down -v --remove-orphans",
-    "db:reset": "npm run docker:clean && npm run docker:dev"
+    "start":"node src/server.js"
   },
   "keywords": [],
   "author": "",
