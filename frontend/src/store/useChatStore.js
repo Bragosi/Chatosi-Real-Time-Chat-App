@@ -36,7 +36,7 @@ export const useChatStore = create((set, get) => ({
     set({ isMessagesLoading: true });
     try {
       await axiosInstance.put(`/message/${userId}/mark-read`);
-      const res = await axiosInstance.get(`/messages/${userId}`);
+      const res = await axiosInstance.get(`/message/${userId}`);
       set({ messages: res.data });
 
       const currentUnread = get().unreadCounts;
