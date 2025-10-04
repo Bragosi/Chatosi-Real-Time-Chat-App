@@ -2,6 +2,8 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "./useAuthStore";
+import { sendNotificatons } from "../lib/utils";
+import {truncateLongText} from "../lib/utils"
 
 export const useChatStore = create((set, get) => ({
   messages: [],
@@ -94,15 +96,18 @@ export const useChatStore = create((set, get) => ({
         set({ messages: [...messages, newMessage] });
       }
 
+
       // Handle unread counts (only if message is for me and not current chat)
       if (isForMe && !isCurrentChat) {
-        console.log("🔢 Updating unread count for:", senderIdStr);
         const newUnreadCounts = {
           ...unreadCounts,
           [senderIdStr]: (unreadCounts[senderIdStr] || 0) + 1,
         };
-        console.log("🔢 New count:", newUnreadCounts[senderIdStr]);
         set({ unreadCounts: newUnreadCounts });
+        // Send browser notification
+        sendNotificatons(
+          `Chatosi:\n${newMessage.text ? truncateLongText(newMessage.text) : 'New message recieved'}`
+        );
       }
 
       // If message is for current chat AND for me, don't count as unread
